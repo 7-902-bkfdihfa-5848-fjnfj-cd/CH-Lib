@@ -1,5 +1,5 @@
 -- CloudHubModuleScript (This is your library script)
---a
+-- b
 local CloudHub = {}
 CloudHub.__index = CloudHub
 
@@ -173,7 +173,7 @@ function CloudHub:Initialize()
 
     -- Make the frame draggable
     local dragging = false
-    local dragInput, dragStart, startPos
+    local dragStart, startPos
 
     local function update(input)
         local delta = input.Position - dragStart
