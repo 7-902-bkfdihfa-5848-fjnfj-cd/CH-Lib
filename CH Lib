@@ -1,0 +1,118 @@
+-- CloudHubModuleScript (This is your library script)
+
+local CloudHub = {}
+CloudHub.__index = CloudHub
+
+-- Function to create the main UI
+function CloudHub:Initialize()
+    local player = game.Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
+
+    -- Remove existing GUI if it exists
+    local existingGui = playerGui:FindFirstChild("CloudHubPrivateUi")
+    if existingGui then
+        existingGui:Destroy()
+    end
+
+    -- Create the ScreenGui
+    self.screenGui = Instance.new("ScreenGui")
+    self.screenGui.Name = "CloudHubPrivateUi"
+    self.screenGui.Parent = playerGui
+
+    -- Create the main frame
+    self.mainFrame = Instance.new("Frame")
+    self.mainFrame.Size = UDim2.new(0, 696, 0, 427)
+    self.mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    self.mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+    self.mainFrame.BackgroundColor3 = Color3.fromRGB(8, 10, 13)
+    self.mainFrame.BorderSizePixel = 0
+    self.mainFrame.Parent = self.screenGui
+
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.CornerRadius = UDim.new(0, 10)
+    uiCorner.Parent = self.mainFrame
+
+    -- Tabs container
+    self.tabsContainer = Instance.new("Frame")
+    self.tabsContainer.Size = UDim2.new(1, -40, 0, 50)
+    self.tabsContainer.Position = UDim2.new(0, 20, 0, 140)
+    self.tabsContainer.BackgroundColor3 = Color3.fromRGB(30, 32, 36)
+    self.tabsContainer.BorderSizePixel = 0
+    self.tabsContainer.Parent = self.mainFrame
+
+    -- Tabs content container
+    self.tabsContent = Instance.new("Frame")
+    self.tabsContent.Size = UDim2.new(1, -40, 1, -190)
+    self.tabsContent.Position = UDim2.new(0, 20, 0, 190)
+    self.tabsContent.BackgroundColor3 = Color3.fromRGB(8, 10, 13)
+    self.tabsContent.BorderSizePixel = 0
+    self.tabsContent.Visible = false
+    self.tabsContent.Parent = self.mainFrame
+
+    self.tabButtons = {}
+    self.tabContents = {}
+end
+
+-- Function to create a new tab
+function CloudHub:MakeTab(tabInfo)
+    local name = tabInfo.Name
+    local iconId = tabInfo.Icon
+    local content = tabInfo.Content
+
+    -- Create tab button
+    local tabButton = Instance.new("TextButton")
+    tabButton.Size = UDim2.new(0, 100, 1, 0)
+    tabButton.Text = name
+    tabButton.TextSize = 14
+    tabButton.BackgroundColor3 = Color3.fromRGB(40, 42, 46)
+    tabButton.TextColor3 = Color3.new(1, 1, 1)
+    tabButton.Font = Enum.Font.Gotham
+    tabButton.Parent = self.tabsContainer
+
+    local tabIcon = Instance.new("ImageLabel")
+    tabIcon.Size = UDim2.new(0, 20, 0, 20)
+    tabIcon.Position = UDim2.new(0, 10, 0, 15)
+    tabIcon.BackgroundTransparency = 1
+    tabIcon.Image = "rbxassetid://" .. iconId
+    tabIcon.Parent = tabButton
+
+    local contentFrame = Instance.new("Frame")
+    contentFrame.Size = UDim2.new(1, 0, 1, 0)
+    contentFrame.BackgroundColor3 = Color3.fromRGB(8, 10, 13)
+    contentFrame.BorderSizePixel = 0
+    contentFrame.Visible = false
+    contentFrame.Parent = self.tabsContent
+
+    if content then
+        content.Parent = contentFrame
+    end
+
+    self.tabButtons[name] = tabButton
+    self.tabContents[name] = contentFrame
+
+    tabButton.MouseButton1Click:Connect(function()
+        for _, button in pairs(self.tabButtons) do
+            button.BackgroundColor3 = Color3.fromRGB(40, 42, 46)
+        end
+        for _, frame in pairs(self.tabContents) do
+            frame.Visible = false
+        end
+        tabButton.BackgroundColor3 = Color3.fromRGB(60, 62, 66)
+        contentFrame.Visible = true
+    end)
+
+    if #self.tabButtons == 1 then
+        tabButton.BackgroundColor3 = Color3.fromRGB(60, 62, 66)
+        contentFrame.Visible = true
+        self.tabsContent.Visible = true
+    end
+end
+
+-- Function to initialize the CloudHub instance
+function CloudHub.new()
+    local self = setmetatable({}, CloudHub)
+    self:Initialize()
+    return self
+end
+
+return CloudHub
