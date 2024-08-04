@@ -32,6 +32,92 @@ function CloudHub:Initialize()
     uiCorner.CornerRadius = UDim.new(0, 10)
     uiCorner.Parent = self.mainFrame
 
+    -- Title
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Text = "Cloud Hub"
+    titleLabel.Size = UDim2.new(0, 200, 0, 50)
+    titleLabel.Position = UDim2.new(0.5, -100, 0, 10)
+    titleLabel.Font = Enum.Font.GothamBold
+    titleLabel.TextSize = 24
+    titleLabel.TextColor3 = Color3.new(1, 1, 1)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Parent = self.mainFrame
+
+    -- Close Button
+    local closeButton = Instance.new("ImageButton")
+    closeButton.Size = UDim2.new(0, 30, 0, 30)
+    closeButton.Position = UDim2.new(1, -40, 0, 25)
+    closeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+    closeButton.BackgroundTransparency = 1
+    closeButton.Image = "rbxassetid://6035047409"
+    closeButton.ImageColor3 = Color3.new(1, 1, 1)
+    closeButton.Parent = self.mainFrame
+
+    -- Minimize/Maximize Button
+    local minimizeButton = Instance.new("TextButton")
+    minimizeButton.Text = "–"
+    minimizeButton.Size = UDim2.new(0, 50, 0, 50)
+    minimizeButton.Position = UDim2.new(1, -90, 0, 25)
+    minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
+    minimizeButton.BackgroundTransparency = 1
+    minimizeButton.Font = Enum.Font.GothamBold
+    minimizeButton.TextSize = 30
+    minimizeButton.TextColor3 = Color3.new(1, 1, 1)
+    minimizeButton.Parent = self.mainFrame
+
+    -- Separator Line
+    local separatorLine = Instance.new("Frame")
+    separatorLine.Size = UDim2.new(1, 0, 0, 2)
+    separatorLine.Position = UDim2.new(0, 0, 0, 55)
+    separatorLine.BackgroundColor3 = Color3.fromRGB(23, 25, 29)
+    separatorLine.BorderSizePixel = 0
+    separatorLine.Parent = self.mainFrame
+
+    -- Avatar Outline
+    self.avatarOutline = Instance.new("Frame")
+    self.avatarOutline.Size = UDim2.new(0, 100, 0, 100)
+    self.avatarOutline.Position = UDim2.new(0, 20, 0, 70)
+    self.avatarOutline.BackgroundColor3 = Color3.fromRGB(23, 25, 29)
+    self.avatarOutline.BorderSizePixel = 0
+    self.avatarOutline.ClipsDescendants = true
+    self.avatarOutline.Parent = self.mainFrame
+
+    local avatarHeadshot = Instance.new("ImageLabel")
+    avatarHeadshot.Size = UDim2.new(0.9, -10, 0.9, -10)
+    avatarHeadshot.Position = UDim2.new(0, 10, 0, 5)
+    avatarHeadshot.BackgroundTransparency = 1
+    avatarHeadshot.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. tostring(player.UserId) .. "&width=420&height=420&format=png"
+    avatarHeadshot.ClipsDescendants = true
+    avatarHeadshot.Parent = self.avatarOutline
+
+    local avatarUICorner = Instance.new("UICorner")
+    avatarUICorner.CornerRadius = UDim.new(0, 50)
+    avatarUICorner.Parent = self.avatarOutline
+
+    -- DisplayName Label
+    self.displayNameLabel = Instance.new("TextLabel")
+    self.displayNameLabel.Text = player.DisplayName
+    self.displayNameLabel.Size = UDim2.new(0, 200, 0, 50)
+    self.displayNameLabel.Position = UDim2.new(0, 132, 0, 86)
+    self.displayNameLabel.Font = Enum.Font.GothamBold
+    self.displayNameLabel.TextSize = 15
+    self.displayNameLabel.TextColor3 = Color3.new(1, 1, 1)
+    self.displayNameLabel.BackgroundTransparency = 1
+    self.displayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    self.displayNameLabel.Parent = self.mainFrame
+
+    -- Status Label
+    self.statusLabel = Instance.new("TextLabel")
+    self.statusLabel.Text = "Free User"
+    self.statusLabel.Size = UDim2.new(0, 200, 0, 50)
+    self.statusLabel.Position = UDim2.new(0, 132, 0, 126)
+    self.statusLabel.Font = Enum.Font.GothamBold
+    self.statusLabel.TextSize = 15
+    self.statusLabel.TextColor3 = Color3.fromRGB(100, 102, 105)
+    self.statusLabel.BackgroundTransparency = 1
+    self.statusLabel.TextXAlignment = Enum.TextXAlignment.Left
+    self.statusLabel.Parent = self.mainFrame
+
     -- Tabs container
     self.tabsContainer = Instance.new("Frame")
     self.tabsContainer.Size = UDim2.new(1, -40, 0, 50)
@@ -51,6 +137,70 @@ function CloudHub:Initialize()
 
     self.tabButtons = {}
     self.tabContents = {}
+
+    -- Minimize/Maximize functionality
+    local isMinimized = false
+    local function toggleMinimize()
+        if isMinimized then
+            self.mainFrame:TweenSize(UDim2.new(0, 696, 0, 427), "Out", "Quad", 0.5, true)
+            titleLabel.Visible = true
+            self.statusLabel.Visible = true
+            minimizeButton.Text = "–"
+            separatorLine.Visible = true
+            self.avatarOutline.Visible = true
+            self.displayNameLabel.Visible = true
+            self.tabsContainer.Visible = true
+            self.tabsContent.Visible = true
+        else
+            self.mainFrame:TweenSize(UDim2.new(0, 696, 0, 50), "Out", "Quad", 0.5, true)
+            titleLabel.Visible = true
+            titleLabel.Position = UDim2.new(0.5, -titleLabel.Size.X.Offset / 2, 0.5, -titleLabel.Size.Y.Offset / 2)
+            minimizeButton.Text = "+"
+            separatorLine.Visible = false
+            self.avatarOutline.Visible = false
+            self.displayNameLabel.Visible = false
+            self.statusLabel.Visible = false
+            self.tabsContainer.Visible = false
+            self.tabsContent.Visible = false
+        end
+        isMinimized = not isMinimized
+    end
+
+    minimizeButton.MouseButton1Click:Connect(toggleMinimize)
+    closeButton.MouseButton1Click:Connect(function()
+        self.screenGui:Destroy()
+    end)
+
+    -- Make the frame draggable
+    local dragging = false
+    local dragInput, dragStart, startPos
+
+    local function update(input)
+        local delta = input.Position - dragStart
+        self.mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+
+    local function onInputBegan(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragStart = input.Position
+            startPos = self.mainFrame.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end
+
+    local function onInputChanged(input)
+        if dragging then
+            update(input)
+        end
+    end
+
+    self.mainFrame.InputBegan:Connect(onInputBegan)
+    self.mainFrame.InputChanged:Connect(onInputChanged)
 end
 
 -- Function to create a new tab
@@ -86,6 +236,11 @@ function CloudHub:MakeTab(tabInfo)
     if content then
         content.Parent = contentFrame
     end
+
+    -- Auto-align tabs
+    local totalTabs = #self.tabButtons + 1
+    tabButton.Position = UDim2.new((totalTabs - 1) / totalTabs, 0, 0, 0)
+    tabButton.Size = UDim2.new(1 / totalTabs, 0, 1, 0)
 
     self.tabButtons[name] = tabButton
     self.tabContents[name] = contentFrame
