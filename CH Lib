@@ -1,5 +1,5 @@
 -- CloudHubModuleScript
--- e
+-- f
 local CloudHub = {}
 CloudHub.__index = CloudHub
 
@@ -36,7 +36,8 @@ function CloudHub:Initialize()
     self.titleLabel = Instance.new("TextLabel")
     self.titleLabel.Text = "Cloud Hub"
     self.titleLabel.Size = UDim2.new(0, 200, 0, 50)
-    self.titleLabel.Position = UDim2.new(-0.06, 3.5, 0.006, 0.06)
+    self.titleLabel.Position = UDim2.new(0.5, -100, 0.03, 0)
+    self.titleLabel.AnchorPoint = Vector2.new(0.5, 0)
     self.titleLabel.Font = Enum.Font.GothamBold
     self.titleLabel.TextSize = 15
     self.titleLabel.TextColor3 = Color3.new(1, 1, 1)
@@ -110,7 +111,7 @@ function CloudHub:Initialize()
     self.statusLabel = Instance.new("TextLabel")
     self.statusLabel.Text = "Free User"
     self.statusLabel.Size = UDim2.new(0, 200, 0, 50)
-    self.statusLabel.Position = UDim2.new(0.088, 3, 0.24, 0.06)
+    self.statusLabel.Position = UDim2.new(0, 132, 0, 136)
     self.statusLabel.Font = Enum.Font.GothamBold
     self.statusLabel.TextSize = 15
     self.statusLabel.TextColor3 = Color3.fromRGB(100, 102, 105)
@@ -121,15 +122,15 @@ function CloudHub:Initialize()
     -- Tabs container
     self.tabsContainer = Instance.new("Frame")
     self.tabsContainer.Size = UDim2.new(1, -40, 0, 40)
-    self.tabsContainer.Position = UDim2.new(0, 20, 0, 150)
+    self.tabsContainer.Position = UDim2.new(0, 20, 0, 190)
     self.tabsContainer.BackgroundColor3 = Color3.fromRGB(30, 32, 36)
     self.tabsContainer.BorderSizePixel = 0
     self.tabsContainer.Parent = self.mainFrame
 
     -- Tabs content container
     self.tabsContent = Instance.new("Frame")
-    self.tabsContent.Size = UDim2.new(1, -40, 1, -200)
-    self.tabsContent.Position = UDim2.new(0, 20, 0, 200)
+    self.tabsContent.Size = UDim2.new(1, -40, 1, -240)
+    self.tabsContent.Position = UDim2.new(0, 20, 0, 240)
     self.tabsContent.BackgroundColor3 = Color3.fromRGB(8, 10, 13)
     self.tabsContent.BorderSizePixel = 0
     self.tabsContent.Visible = false
@@ -144,6 +145,7 @@ function CloudHub:Initialize()
         if isMinimized then
             self.mainFrame:TweenSize(UDim2.new(0, 696, 0, 427), "Out", "Quad", 0.5, true)
             self.titleLabel.Visible = true
+            self.titleLabel.Position = UDim2.new(0.5, -100, 0.03, 0)
             self.statusLabel.Visible = true
             minimizeButton.Text = "–"
             separatorLine.Visible = true
@@ -167,13 +169,19 @@ function CloudHub:Initialize()
     end
 
     minimizeButton.MouseButton1Click:Connect(toggleMinimize)
+
     closeButton.MouseButton1Click:Connect(function()
         self.screenGui:Destroy()
     end)
 
     -- Make the frame draggable
+    self:MakeDraggable()
+end
+
+-- Function to make the frame draggable
+function CloudHub:MakeDraggable()
     local dragging = false
-    local dragStart, startPos
+    local dragInput, dragStart, startPos
 
     local function update(input)
         local delta = input.Position - dragStart
