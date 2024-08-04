@@ -1,5 +1,5 @@
 -- CloudHubModuleScript
--- k
+-- l
 local CloudHub = {}
 CloudHub.__index = CloudHub
 
@@ -111,7 +111,7 @@ function CloudHub:Initialize()
     self.statusLabel = Instance.new("TextLabel")
     self.statusLabel.Text = "Free User"
     self.statusLabel.Size = UDim2.new(0, 200, 0, 50)
-    self.statusLabel.Position = UDim2.new(0, 29, 0, 103) -- Adjusted position
+    self.statusLabel.Position = UDim2.new(0, 114, 0, 103) -- Adjusted position
     self.statusLabel.Font = Enum.Font.Gotham
     self.statusLabel.TextSize = 15
     self.statusLabel.TextColor3 = Color3.fromRGB(100, 102, 105)
