@@ -1,5 +1,5 @@
--- CloudHubModuleScript (This is your library script)
--- b
+-- CloudHubModuleScript
+-- c
 local CloudHub = {}
 CloudHub.__index = CloudHub
 
@@ -33,20 +33,21 @@ function CloudHub:Initialize()
     uiCorner.Parent = self.mainFrame
 
     -- Title
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Text = "Cloud Hub"
-    titleLabel.Size = UDim2.new(0, 200, 0, 50)
-    titleLabel.Position = UDim2.new(0.5, -100, 0, 10)
-    titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.TextSize = 24
-    titleLabel.TextColor3 = Color3.new(1, 1, 1)
-    titleLabel.BackgroundTransparency = 1
-    titleLabel.Parent = self.mainFrame
+    self.titleLabel = Instance.new("TextLabel")
+    self.titleLabel.Text = "Cloud Hub"
+    self.titleLabel.Size = UDim2.new(0, 200, 0, 40)
+    self.titleLabel.Position = UDim2.new(0.5, -100, 0, 10)
+    self.titleLabel.AnchorPoint = Vector2.new(0.5, 0)
+    self.titleLabel.Font = Enum.Font.GothamBold
+    self.titleLabel.TextSize = 24
+    self.titleLabel.TextColor3 = Color3.new(1, 1, 1)
+    self.titleLabel.BackgroundTransparency = 1
+    self.titleLabel.Parent = self.mainFrame
 
     -- Close Button
     local closeButton = Instance.new("ImageButton")
     closeButton.Size = UDim2.new(0, 30, 0, 30)
-    closeButton.Position = UDim2.new(1, -40, 0, 25)
+    closeButton.Position = UDim2.new(1, -40, 0, 20)
     closeButton.AnchorPoint = Vector2.new(0.5, 0.5)
     closeButton.BackgroundTransparency = 1
     closeButton.Image = "rbxassetid://6035047409"
@@ -57,7 +58,7 @@ function CloudHub:Initialize()
     local minimizeButton = Instance.new("TextButton")
     minimizeButton.Text = "–"
     minimizeButton.Size = UDim2.new(0, 50, 0, 50)
-    minimizeButton.Position = UDim2.new(1, -90, 0, 25)
+    minimizeButton.Position = UDim2.new(1, -90, 0, 20)
     minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
     minimizeButton.BackgroundTransparency = 1
     minimizeButton.Font = Enum.Font.GothamBold
@@ -83,8 +84,8 @@ function CloudHub:Initialize()
     self.avatarOutline.Parent = self.mainFrame
 
     local avatarHeadshot = Instance.new("ImageLabel")
-    avatarHeadshot.Size = UDim2.new(0.9, -10, 0.9, -10)
-    avatarHeadshot.Position = UDim2.new(0, 10, 0, 5)
+    avatarHeadshot.Size = UDim2.new(1, -10, 1, -10)
+    avatarHeadshot.Position = UDim2.new(0, 5, 0, 5)
     avatarHeadshot.BackgroundTransparency = 1
     avatarHeadshot.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. tostring(player.UserId) .. "&width=420&height=420&format=png"
     avatarHeadshot.ClipsDescendants = true
@@ -97,10 +98,10 @@ function CloudHub:Initialize()
     -- DisplayName Label
     self.displayNameLabel = Instance.new("TextLabel")
     self.displayNameLabel.Text = player.DisplayName
-    self.displayNameLabel.Size = UDim2.new(0, 200, 0, 50)
-    self.displayNameLabel.Position = UDim2.new(0, 132, 0, 86)
+    self.displayNameLabel.Size = UDim2.new(0, 200, 0, 30)
+    self.displayNameLabel.Position = UDim2.new(0, 132, 0, 70)
     self.displayNameLabel.Font = Enum.Font.GothamBold
-    self.displayNameLabel.TextSize = 15
+    self.displayNameLabel.TextSize = 18
     self.displayNameLabel.TextColor3 = Color3.new(1, 1, 1)
     self.displayNameLabel.BackgroundTransparency = 1
     self.displayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -109,10 +110,10 @@ function CloudHub:Initialize()
     -- Status Label
     self.statusLabel = Instance.new("TextLabel")
     self.statusLabel.Text = "Free User"
-    self.statusLabel.Size = UDim2.new(0, 200, 0, 50)
-    self.statusLabel.Position = UDim2.new(0, 132, 0, 126)
+    self.statusLabel.Size = UDim2.new(0, 200, 0, 30)
+    self.statusLabel.Position = UDim2.new(0, 132, 0, 105)
     self.statusLabel.Font = Enum.Font.GothamBold
-    self.statusLabel.TextSize = 15
+    self.statusLabel.TextSize = 18
     self.statusLabel.TextColor3 = Color3.fromRGB(100, 102, 105)
     self.statusLabel.BackgroundTransparency = 1
     self.statusLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -120,8 +121,8 @@ function CloudHub:Initialize()
 
     -- Tabs container
     self.tabsContainer = Instance.new("Frame")
-    self.tabsContainer.Size = UDim2.new(1, -40, 0, 50)
-    self.tabsContainer.Position = UDim2.new(0, 20, 0, 140)
+    self.tabsContainer.Size = UDim2.new(1, -40, 0, 40)
+    self.tabsContainer.Position = UDim2.new(0, 20, 0, 150)
     self.tabsContainer.BackgroundColor3 = Color3.fromRGB(30, 32, 36)
     self.tabsContainer.BorderSizePixel = 0
     self.tabsContainer.Parent = self.mainFrame
@@ -129,7 +130,7 @@ function CloudHub:Initialize()
     -- Tabs content container
     self.tabsContent = Instance.new("Frame")
     self.tabsContent.Size = UDim2.new(1, -40, 1, -190)
-    self.tabsContent.Position = UDim2.new(0, 20, 0, 190)
+    self.tabsContent.Position = UDim2.new(0, 20, 0, 200)
     self.tabsContent.BackgroundColor3 = Color3.fromRGB(8, 10, 13)
     self.tabsContent.BorderSizePixel = 0
     self.tabsContent.Visible = false
@@ -143,7 +144,7 @@ function CloudHub:Initialize()
     local function toggleMinimize()
         if isMinimized then
             self.mainFrame:TweenSize(UDim2.new(0, 696, 0, 427), "Out", "Quad", 0.5, true)
-            titleLabel.Visible = true
+            self.titleLabel.Visible = true
             self.statusLabel.Visible = true
             minimizeButton.Text = "–"
             separatorLine.Visible = true
@@ -153,8 +154,8 @@ function CloudHub:Initialize()
             self.tabsContent.Visible = true
         else
             self.mainFrame:TweenSize(UDim2.new(0, 696, 0, 50), "Out", "Quad", 0.5, true)
-            titleLabel.Visible = true
-            titleLabel.Position = UDim2.new(0.5, -titleLabel.Size.X.Offset / 2, 0.5, -titleLabel.Size.Y.Offset / 2)
+            self.titleLabel.Visible = true
+            self.titleLabel.Position = UDim2.new(0.5, -self.titleLabel.Size.X.Offset / 2, 0.5, -self.titleLabel.Size.Y.Offset / 2)
             minimizeButton.Text = "+"
             separatorLine.Visible = false
             self.avatarOutline.Visible = false
@@ -211,7 +212,7 @@ function CloudHub:MakeTab(tabInfo)
 
     -- Create tab button
     local tabButton = Instance.new("TextButton")
-    tabButton.Size = UDim2.new(0, 100, 1, 0)
+    tabButton.Size = UDim2.new(1 / (#self.tabButtons + 1), 0, 1, 0)
     tabButton.Text = name
     tabButton.TextSize = 14
     tabButton.BackgroundColor3 = Color3.fromRGB(40, 42, 46)
@@ -221,7 +222,7 @@ function CloudHub:MakeTab(tabInfo)
 
     local tabIcon = Instance.new("ImageLabel")
     tabIcon.Size = UDim2.new(0, 20, 0, 20)
-    tabIcon.Position = UDim2.new(0, 10, 0, 15)
+    tabIcon.Position = UDim2.new(0, 10, 0, 10)
     tabIcon.BackgroundTransparency = 1
     tabIcon.Image = "rbxassetid://" .. iconId
     tabIcon.Parent = tabButton
@@ -239,6 +240,11 @@ function CloudHub:MakeTab(tabInfo)
 
     -- Auto-align tabs
     local totalTabs = #self.tabButtons + 1
+    for i, button in ipairs(self.tabButtons) do
+        button.Size = UDim2.new(1 / totalTabs, 0, 1, 0)
+        button.Position = UDim2.new((i - 1) / totalTabs, 0, 0, 0)
+    end
+
     tabButton.Position = UDim2.new((totalTabs - 1) / totalTabs, 0, 0, 0)
     tabButton.Size = UDim2.new(1 / totalTabs, 0, 1, 0)
 
