@@ -1,5 +1,5 @@
 -- CloudHubModuleScript
--- d
+-- e
 local CloudHub = {}
 CloudHub.__index = CloudHub
 
@@ -35,11 +35,10 @@ function CloudHub:Initialize()
     -- Title
     self.titleLabel = Instance.new("TextLabel")
     self.titleLabel.Text = "Cloud Hub"
-    self.titleLabel.Size = UDim2.new(0, 200, 0, 40)
-    self.titleLabel.Position = UDim2.new(0.5, -100, 0, 10)
-    self.titleLabel.AnchorPoint = Vector2.new(0.5, 0)
+    self.titleLabel.Size = UDim2.new(0, 200, 0, 50)
+    self.titleLabel.Position = UDim2.new(-0.06, 3.5, 0.006, 0.06)
     self.titleLabel.Font = Enum.Font.GothamBold
-    self.titleLabel.TextSize = 24
+    self.titleLabel.TextSize = 15
     self.titleLabel.TextColor3 = Color3.new(1, 1, 1)
     self.titleLabel.BackgroundTransparency = 1
     self.titleLabel.Parent = self.mainFrame
@@ -47,7 +46,7 @@ function CloudHub:Initialize()
     -- Close Button
     local closeButton = Instance.new("ImageButton")
     closeButton.Size = UDim2.new(0, 30, 0, 30)
-    closeButton.Position = UDim2.new(1, -40, 0, 20)
+    closeButton.Position = UDim2.new(1, -40, 0, 25)
     closeButton.AnchorPoint = Vector2.new(0.5, 0.5)
     closeButton.BackgroundTransparency = 1
     closeButton.Image = "rbxassetid://6035047409"
@@ -58,7 +57,7 @@ function CloudHub:Initialize()
     local minimizeButton = Instance.new("TextButton")
     minimizeButton.Text = "–"
     minimizeButton.Size = UDim2.new(0, 50, 0, 50)
-    minimizeButton.Position = UDim2.new(1, -90, 0, 20)
+    minimizeButton.Position = UDim2.new(1, -90, 0, 25)
     minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
     minimizeButton.BackgroundTransparency = 1
     minimizeButton.Font = Enum.Font.GothamBold
@@ -84,8 +83,8 @@ function CloudHub:Initialize()
     self.avatarOutline.Parent = self.mainFrame
 
     local avatarHeadshot = Instance.new("ImageLabel")
-    avatarHeadshot.Size = UDim2.new(1, -10, 1, -10)
-    avatarHeadshot.Position = UDim2.new(0, 5, 0, 5)
+    avatarHeadshot.Size = UDim2.new(0.9, -10, 0.9, -10)
+    avatarHeadshot.Position = UDim2.new(0, 10, 0, 5)
     avatarHeadshot.BackgroundTransparency = 1
     avatarHeadshot.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. tostring(player.UserId) .. "&width=420&height=420&format=png"
     avatarHeadshot.ClipsDescendants = true
@@ -98,10 +97,10 @@ function CloudHub:Initialize()
     -- DisplayName Label
     self.displayNameLabel = Instance.new("TextLabel")
     self.displayNameLabel.Text = player.DisplayName
-    self.displayNameLabel.Size = UDim2.new(0, 200, 0, 30)
-    self.displayNameLabel.Position = UDim2.new(0, 132, 0, 70)
+    self.displayNameLabel.Size = UDim2.new(0, 200, 0, 50)
+    self.displayNameLabel.Position = UDim2.new(0, 132, 0, 86)
     self.displayNameLabel.Font = Enum.Font.GothamBold
-    self.displayNameLabel.TextSize = 18
+    self.displayNameLabel.TextSize = 15
     self.displayNameLabel.TextColor3 = Color3.new(1, 1, 1)
     self.displayNameLabel.BackgroundTransparency = 1
     self.displayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -110,10 +109,10 @@ function CloudHub:Initialize()
     -- Status Label
     self.statusLabel = Instance.new("TextLabel")
     self.statusLabel.Text = "Free User"
-    self.statusLabel.Size = UDim2.new(0, 200, 0, 30)
-    self.statusLabel.Position = UDim2.new(0, 132, 0, 105)
+    self.statusLabel.Size = UDim2.new(0, 200, 0, 50)
+    self.statusLabel.Position = UDim2.new(0.088, 3, 0.24, 0.06)
     self.statusLabel.Font = Enum.Font.GothamBold
-    self.statusLabel.TextSize = 18
+    self.statusLabel.TextSize = 15
     self.statusLabel.TextColor3 = Color3.fromRGB(100, 102, 105)
     self.statusLabel.BackgroundTransparency = 1
     self.statusLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -129,7 +128,7 @@ function CloudHub:Initialize()
 
     -- Tabs content container
     self.tabsContent = Instance.new("Frame")
-    self.tabsContent.Size = UDim2.new(1, -40, 1, -190)
+    self.tabsContent.Size = UDim2.new(1, -40, 1, -200)
     self.tabsContent.Position = UDim2.new(0, 20, 0, 200)
     self.tabsContent.BackgroundColor3 = Color3.fromRGB(8, 10, 13)
     self.tabsContent.BorderSizePixel = 0
